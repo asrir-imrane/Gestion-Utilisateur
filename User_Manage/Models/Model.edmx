@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_UtilisateursModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="id_application" />
+          </Key>
+          <Property Name="id_application" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_application" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Application_Role_Autorisations">
+          <Key>
+            <PropertyRef Name="id_Application_role_aut" />
+          </Key>
+          <Property Name="id_Application_role_aut" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Application" Type="int" />
+          <Property Name="id_utilisateur_role" Type="int" />
+          <Property Name="id_autorisation" Type="int" />
+        </EntityType>
+        <EntityType Name="Autorisation">
+          <Key>
+            <PropertyRef Name="id_autorisation" />
+          </Key>
+          <Property Name="id_autorisation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_autorisation" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_role" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Utilisateur_Role">
+          <Key>
+            <PropertyRef Name="id_utilisateur_role" />
+          </Key>
+          <Property Name="id_utilisateur_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_utilisateur" Type="int" />
+          <Property Name="id_role" Type="int" />
+        </EntityType>
+        <EntityType Name="Utilisateurs">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mot_de_passe" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adresse_email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="date_inscription" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_Utilisateurs.dbo.User_Permissions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="User_Permissions">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+            <PropertyRef Name="nom_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="int" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom_role" Type="varchar" MaxLength="255" />
+          <Property Name="nom_autorisation" Type="varchar" MaxLength="255" />
+          <Property Name="nom_application" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Applicati__id_Ap__4316F928">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="id_application" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_Application" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__id_au__44FF419A">
+          <End Role="Autorisation" Type="Self.Autorisation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autorisation">
+              <PropertyRef Name="id_autorisation" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_autorisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__id_ut__440B1D61">
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur_Role">
+              <PropertyRef Name="id_utilisateur_role" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_utilisateur_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilisate__id_ro__403A8C7D">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="Utilisateur_Role">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilisate__id_ut__3F466844">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="id_utilisateur" />
+            </Principal>
+            <Dependent Role="Utilisateur_Role">
+              <PropertyRef Name="id_utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DB_UtilisateursModelStoreContainer">
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Application_Role_Autorisations" EntityType="Self.Application_Role_Autorisations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autorisation" EntityType="Self.Autorisation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur_Role" EntityType="Self.Utilisateur_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Permissions" EntityType="Self.User_Permissions" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [User_Permissions].[id_utilisateur] AS [id_utilisateur], 
+    [User_Permissions].[nom_utilisateur] AS [nom_utilisateur], 
+    [User_Permissions].[nom_role] AS [nom_role], 
+    [User_Permissions].[nom_autorisation] AS [nom_autorisation], 
+    [User_Permissions].[nom_application] AS [nom_application]
+    FROM [dbo].[User_Permissions] AS [User_Permissions]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Applicati__id_Ap__4316F928" Association="Self.FK__Applicati__id_Ap__4316F928">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__id_au__44FF419A" Association="Self.FK__Applicati__id_au__44FF419A">
+            <End Role="Autorisation" EntitySet="Autorisation" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__id_ut__440B1D61" Association="Self.FK__Applicati__id_ut__440B1D61">
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilisate__id_ro__403A8C7D" Association="Self.FK__Utilisate__id_ro__403A8C7D">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilisate__id_ut__3F466844" Association="Self.FK__Utilisate__id_ut__3F466844">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_UtilisateursModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="id_application" />
+          </Key>
+          <Property Name="id_application" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_application" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Application_Role_Autorisations" Relationship="Self.FK__Applicati__id_Ap__4316F928" FromRole="Application" ToRole="Application_Role_Autorisations" />
+        </EntityType>
+        <EntityType Name="Application_Role_Autorisations">
+          <Key>
+            <PropertyRef Name="id_Application_role_aut" />
+          </Key>
+          <Property Name="id_Application_role_aut" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Application" Type="Int32" />
+          <Property Name="id_utilisateur_role" Type="Int32" />
+          <Property Name="id_autorisation" Type="Int32" />
+          <NavigationProperty Name="Application" Relationship="Self.FK__Applicati__id_Ap__4316F928" FromRole="Application_Role_Autorisations" ToRole="Application" />
+          <NavigationProperty Name="Autorisation" Relationship="Self.FK__Applicati__id_au__44FF419A" FromRole="Application_Role_Autorisations" ToRole="Autorisation" />
+          <NavigationProperty Name="Utilisateur_Role" Relationship="Self.FK__Applicati__id_ut__440B1D61" FromRole="Application_Role_Autorisations" ToRole="Utilisateur_Role" />
+        </EntityType>
+        <EntityType Name="Autorisation">
+          <Key>
+            <PropertyRef Name="id_autorisation" />
+          </Key>
+          <Property Name="id_autorisation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_autorisation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Application_Role_Autorisations" Relationship="Self.FK__Applicati__id_au__44FF419A" FromRole="Autorisation" ToRole="Application_Role_Autorisations" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_role" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Utilisateur_Role" Relationship="Self.FK__Utilisate__id_ro__403A8C7D" FromRole="Role" ToRole="Utilisateur_Role" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur_Role">
+          <Key>
+            <PropertyRef Name="id_utilisateur_role" />
+          </Key>
+          <Property Name="id_utilisateur_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_utilisateur" Type="Int32" />
+          <Property Name="id_role" Type="Int32" />
+          <NavigationProperty Name="Application_Role_Autorisations" Relationship="Self.FK__Applicati__id_ut__440B1D61" FromRole="Utilisateur_Role" ToRole="Application_Role_Autorisations" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Utilisate__id_ro__403A8C7D" FromRole="Utilisateur_Role" ToRole="Role" />
+          <NavigationProperty Name="Utilisateurs" Relationship="Self.FK__Utilisate__id_ut__3F466844" FromRole="Utilisateur_Role" ToRole="Utilisateurs" />
+        </EntityType>
+        <EntityType Name="Utilisateurs">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mot_de_passe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresse_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_inscription" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Utilisateur_Role" Relationship="Self.FK__Utilisate__id_ut__3F466844" FromRole="Utilisateurs" ToRole="Utilisateur_Role" />
+        </EntityType>
+        <EntityType Name="User_Permissions">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+            <PropertyRef Name="nom_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="Int32" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nom_role" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nom_autorisation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nom_application" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Applicati__id_Ap__4316F928">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="id_application" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_Application" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__id_au__44FF419A">
+          <End Role="Autorisation" Type="Self.Autorisation" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autorisation">
+              <PropertyRef Name="id_autorisation" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_autorisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__id_ut__440B1D61">
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Application_Role_Autorisations" Type="Self.Application_Role_Autorisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur_Role">
+              <PropertyRef Name="id_utilisateur_role" />
+            </Principal>
+            <Dependent Role="Application_Role_Autorisations">
+              <PropertyRef Name="id_utilisateur_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilisate__id_ro__403A8C7D">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="Utilisateur_Role">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilisate__id_ut__3F466844">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="id_utilisateur" />
+            </Principal>
+            <Dependent Role="Utilisateur_Role">
+              <PropertyRef Name="id_utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_UtilisateursEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Application" EntityType="Self.Application" />
+          <EntitySet Name="Application_Role_Autorisations" EntityType="Self.Application_Role_Autorisations" />
+          <EntitySet Name="Autorisation" EntityType="Self.Autorisation" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Utilisateur_Role" EntityType="Self.Utilisateur_Role" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
+          <EntitySet Name="User_Permissions" EntityType="Self.User_Permissions" />
+          <AssociationSet Name="FK__Applicati__id_Ap__4316F928" Association="Self.FK__Applicati__id_Ap__4316F928">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__id_au__44FF419A" Association="Self.FK__Applicati__id_au__44FF419A">
+            <End Role="Autorisation" EntitySet="Autorisation" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__id_ut__440B1D61" Association="Self.FK__Applicati__id_ut__440B1D61">
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+            <End Role="Application_Role_Autorisations" EntitySet="Application_Role_Autorisations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilisate__id_ro__403A8C7D" Association="Self.FK__Utilisate__id_ro__403A8C7D">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilisate__id_ut__3F466844" Association="Self.FK__Utilisate__id_ut__3F466844">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_UtilisateursModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_UtilisateursModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_UtilisateursModelStoreContainer" CdmEntityContainer="DB_UtilisateursEntities2">
+          <EntitySetMapping Name="Application">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="id_application" ColumnName="id_application" />
+                <ScalarProperty Name="nom_application" ColumnName="nom_application" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Application_Role_Autorisations">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Application_Role_Autorisations">
+              <MappingFragment StoreEntitySet="Application_Role_Autorisations">
+                <ScalarProperty Name="id_Application_role_aut" ColumnName="id_Application_role_aut" />
+                <ScalarProperty Name="id_Application" ColumnName="id_Application" />
+                <ScalarProperty Name="id_utilisateur_role" ColumnName="id_utilisateur_role" />
+                <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autorisation">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Autorisation">
+              <MappingFragment StoreEntitySet="Autorisation">
+                <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+                <ScalarProperty Name="nom_autorisation" ColumnName="nom_autorisation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="nom_role" ColumnName="nom_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur_Role">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Utilisateur_Role">
+              <MappingFragment StoreEntitySet="Utilisateur_Role">
+                <ScalarProperty Name="id_utilisateur_role" ColumnName="id_utilisateur_role" />
+                <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.Utilisateurs">
+              <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+                <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+                <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+                <ScalarProperty Name="adresse_email" ColumnName="adresse_email" />
+                <ScalarProperty Name="date_inscription" ColumnName="date_inscription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Permissions">
+            <EntityTypeMapping TypeName="DB_UtilisateursModel.User_Permissions">
+              <MappingFragment StoreEntitySet="User_Permissions">
+                <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+                <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+                <ScalarProperty Name="nom_role" ColumnName="nom_role" />
+                <ScalarProperty Name="nom_autorisation" ColumnName="nom_autorisation" />
+                <ScalarProperty Name="nom_application" ColumnName="nom_application" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_UtilisateursModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DB_UtilisateursModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DB_UtilisateursModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DB_UtilisateursModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UtilisateursModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DB_UtilisateursModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UtilisateursModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_UtilisateursModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_UtilisateursModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

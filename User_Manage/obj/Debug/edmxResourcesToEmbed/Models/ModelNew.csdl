@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataUtilisateurModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Applications">
+    <Key>
+      <PropertyRef Name="AppID" />
+    </Key>
+    <Property Name="AppID" Type="Int32" Nullable="false" />
+    <Property Name="NomApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RôleAutorisation" Relationship="Self.FK__RôleAutor__AppID__44FF419A" FromRole="Applications" ToRole="RôleAutorisation" />
+  </EntityType>
+  <EntityType Name="Autorisations">
+    <Key>
+      <PropertyRef Name="AutoID" />
+    </Key>
+    <Property Name="AutoID" Type="Int32" Nullable="false" />
+    <Property Name="NomAutorisation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RôleAutorisation" Relationship="Self.FK__RôleAutor__AutoI__440B1D61" FromRole="Autorisations" ToRole="RôleAutorisation" />
+  </EntityType>
+  <EntityType Name="RôleAutorisation">
+    <Key>
+      <PropertyRef Name="RoleAutorisationID" />
+    </Key>
+    <Property Name="RoleAutorisationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="AutoID" Type="Int32" Nullable="false" />
+    <Property Name="AppID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Applications" Relationship="Self.FK__RôleAutor__AppID__44FF419A" FromRole="RôleAutorisation" ToRole="Applications" />
+    <NavigationProperty Name="Autorisations" Relationship="Self.FK__RôleAutor__AutoI__440B1D61" FromRole="RôleAutorisation" ToRole="Autorisations" />
+    <NavigationProperty Name="Rôles" Relationship="Self.FK__RôleAutor__RoleI__4316F928" FromRole="RôleAutorisation" ToRole="Rôles" />
+  </EntityType>
+  <EntityType Name="Rôles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="NomRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RôleAutorisation" Relationship="Self.FK__RôleAutor__RoleI__4316F928" FromRole="Rôles" ToRole="RôleAutorisation" />
+    <NavigationProperty Name="UtilisateurRôle" Relationship="Self.FK__Utilisate__RoleI__403A8C7D" FromRole="Rôles" ToRole="UtilisateurRôle" />
+  </EntityType>
+  <EntityType Name="UtilisateurRôle">
+    <Key>
+      <PropertyRef Name="UtilisateurRoleID" />
+    </Key>
+    <Property Name="UtilisateurRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UtilisateurID" Type="Int32" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Rôles" Relationship="Self.FK__Utilisate__RoleI__403A8C7D" FromRole="UtilisateurRôle" ToRole="Rôles" />
+    <NavigationProperty Name="Utilisateurs" Relationship="Self.FK__Utilisate__Utili__3F466844" FromRole="UtilisateurRôle" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Utilisateurs">
+    <Key>
+      <PropertyRef Name="UtilisateurID" />
+    </Key>
+    <Property Name="UtilisateurID" Type="Int32" Nullable="false" />
+    <Property Name="NomUtilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MotDePasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdresseEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateInscription" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UtilisateurRôle" Relationship="Self.FK__Utilisate__Utili__3F466844" FromRole="Utilisateurs" ToRole="UtilisateurRôle" />
+  </EntityType>
+  <Association Name="FK__RôleAutor__AppID__44FF419A">
+    <End Role="Applications" Type="Self.Applications" Multiplicity="1" />
+    <End Role="RôleAutorisation" Type="Self.RôleAutorisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Applications">
+        <PropertyRef Name="AppID" />
+      </Principal>
+      <Dependent Role="RôleAutorisation">
+        <PropertyRef Name="AppID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RôleAutor__AutoI__440B1D61">
+    <End Role="Autorisations" Type="Self.Autorisations" Multiplicity="1" />
+    <End Role="RôleAutorisation" Type="Self.RôleAutorisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autorisations">
+        <PropertyRef Name="AutoID" />
+      </Principal>
+      <Dependent Role="RôleAutorisation">
+        <PropertyRef Name="AutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RôleAutor__RoleI__4316F928">
+    <End Role="Rôles" Type="Self.Rôles" Multiplicity="1" />
+    <End Role="RôleAutorisation" Type="Self.RôleAutorisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rôles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="RôleAutorisation">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__RoleI__403A8C7D">
+    <End Role="Rôles" Type="Self.Rôles" Multiplicity="1" />
+    <End Role="UtilisateurRôle" Type="Self.UtilisateurRôle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rôles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="UtilisateurRôle">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__Utili__3F466844">
+    <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="1" />
+    <End Role="UtilisateurRôle" Type="Self.UtilisateurRôle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="UtilisateurID" />
+      </Principal>
+      <Dependent Role="UtilisateurRôle">
+        <PropertyRef Name="UtilisateurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataUtilisateurEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Applications" EntityType="Self.Applications" />
+    <EntitySet Name="Autorisations" EntityType="Self.Autorisations" />
+    <EntitySet Name="RôleAutorisation" EntityType="Self.RôleAutorisation" />
+    <EntitySet Name="Rôles" EntityType="Self.Rôles" />
+    <EntitySet Name="UtilisateurRôle" EntityType="Self.UtilisateurRôle" />
+    <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
+    <AssociationSet Name="FK__RôleAutor__AppID__44FF419A" Association="Self.FK__RôleAutor__AppID__44FF419A">
+      <End Role="Applications" EntitySet="Applications" />
+      <End Role="RôleAutorisation" EntitySet="RôleAutorisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RôleAutor__AutoI__440B1D61" Association="Self.FK__RôleAutor__AutoI__440B1D61">
+      <End Role="Autorisations" EntitySet="Autorisations" />
+      <End Role="RôleAutorisation" EntitySet="RôleAutorisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RôleAutor__RoleI__4316F928" Association="Self.FK__RôleAutor__RoleI__4316F928">
+      <End Role="Rôles" EntitySet="Rôles" />
+      <End Role="RôleAutorisation" EntitySet="RôleAutorisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__RoleI__403A8C7D" Association="Self.FK__Utilisate__RoleI__403A8C7D">
+      <End Role="Rôles" EntitySet="Rôles" />
+      <End Role="UtilisateurRôle" EntitySet="UtilisateurRôle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__Utili__3F466844" Association="Self.FK__Utilisate__Utili__3F466844">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="UtilisateurRôle" EntitySet="UtilisateurRôle" />
+    </AssociationSet>
+    <EntitySet Name="DonneesUtilisateur1Set" EntityType="DataUtilisateurModel.DonneesUtilisateur1" />
+  </EntityContainer>
+  <EntityType Name="DonneesUtilisateur1">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomUtilisateur" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NomRole" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NomAutorisation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NomApp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

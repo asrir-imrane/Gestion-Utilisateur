@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_UtilisateurModelStoreContainer" CdmEntityContainer="DB_UtilisateurEntities">
+    <EntitySetMapping Name="Application">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Application">
+        <MappingFragment StoreEntitySet="Application">
+          <ScalarProperty Name="id_application" ColumnName="id_application" />
+          <ScalarProperty Name="nom_application" ColumnName="nom_application" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Application_Role_Autorisations">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Application_Role_Autorisations">
+        <MappingFragment StoreEntitySet="Application_Role_Autorisations">
+          <ScalarProperty Name="id_Application_role_aut" ColumnName="id_Application_role_aut" />
+          <ScalarProperty Name="id_Application" ColumnName="id_Application" />
+          <ScalarProperty Name="id_utilisateur_role" ColumnName="id_utilisateur_role" />
+          <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Autorisation">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Autorisation">
+        <MappingFragment StoreEntitySet="Autorisation">
+          <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+          <ScalarProperty Name="nom_autorisation" ColumnName="nom_autorisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="nom_role" ColumnName="nom_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur_Role">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Utilisateur_Role">
+        <MappingFragment StoreEntitySet="Utilisateur_Role">
+          <ScalarProperty Name="id_utilisateur_role" ColumnName="id_utilisateur_role" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.Utilisateurs">
+        <MappingFragment StoreEntitySet="Utilisateurs">
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+          <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+          <ScalarProperty Name="adresse_email" ColumnName="adresse_email" />
+          <ScalarProperty Name="date_inscription" ColumnName="date_inscription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Permissions">
+      <EntityTypeMapping TypeName="DB_UtilisateurModel.User_Permissions">
+        <MappingFragment StoreEntitySet="User_Permissions">
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+          <ScalarProperty Name="nom_role" ColumnName="nom_role" />
+          <ScalarProperty Name="nom_autorisation" ColumnName="nom_autorisation" />
+          <ScalarProperty Name="nom_application" ColumnName="nom_application" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

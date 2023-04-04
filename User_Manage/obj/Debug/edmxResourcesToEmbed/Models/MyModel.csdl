@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UtilisateursModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Application">
+    <Key>
+      <PropertyRef Name="id_application" />
+    </Key>
+    <Property Name="id_application" Type="Int32" Nullable="false" />
+    <Property Name="nom_application" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Utilisateur_Application" Relationship="Self.FK__Utilisate__id_ap__47DBAE45" FromRole="Application" ToRole="Utilisateur_Application" />
+  </EntityType>
+  <EntityType Name="Autorisation">
+    <Key>
+      <PropertyRef Name="id_autorisation" />
+    </Key>
+    <Property Name="id_autorisation" Type="Int32" Nullable="false" />
+    <Property Name="nom_autorisation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Utilisateur_Autorisation" Relationship="Self.FK__Utilisate__id_au__440B1D61" FromRole="Autorisation" ToRole="Utilisateur_Autorisation" />
+  </EntityType>
+  <EntityType Name="DataUtilisateur">
+    <Key>
+      <PropertyRef Name="id_data_utilisateur" />
+    </Key>
+    <Property Name="id_data_utilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Identifiant" Type="Int32" />
+    <Property Name="nomUtilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nomRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nomAutorisation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nomApplication" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_role" />
+    </Key>
+    <Property Name="id_role" Type="Int32" Nullable="false" />
+    <Property Name="nom_role" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Utilisateur_Role" Relationship="Self.FK__Utilisate__id_ro__403A8C7D" FromRole="Role" ToRole="Utilisateur_Role" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="id_utilisateur" />
+    </Key>
+    <Property Name="id_utilisateur" Type="Int32" Nullable="false" />
+    <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mot_de_passe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="adresse_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="date_inscription" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Utilisateur_Role" Relationship="Self.FK__Utilisate__id_ut__3F466844" FromRole="Utilisateur" ToRole="Utilisateur_Role" />
+    <NavigationProperty Name="Utilisateur_Autorisation" Relationship="Self.FK__Utilisate__id_ut__4316F928" FromRole="Utilisateur" ToRole="Utilisateur_Autorisation" />
+    <NavigationProperty Name="Utilisateur_Application" Relationship="Self.FK__Utilisate__id_ut__46E78A0C" FromRole="Utilisateur" ToRole="Utilisateur_Application" />
+  </EntityType>
+  <EntityType Name="Utilisateur_Application">
+    <Key>
+      <PropertyRef Name="id_utilisateur_application" />
+    </Key>
+    <Property Name="id_utilisateur_application" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_utilisateur" Type="Int32" />
+    <Property Name="id_application" Type="Int32" />
+    <NavigationProperty Name="Application" Relationship="Self.FK__Utilisate__id_ap__47DBAE45" FromRole="Utilisateur_Application" ToRole="Application" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Utilisate__id_ut__46E78A0C" FromRole="Utilisateur_Application" ToRole="Utilisateur" />
+  </EntityType>
+  <EntityType Name="Utilisateur_Autorisation">
+    <Key>
+      <PropertyRef Name="id_utilisateur_autorisation" />
+    </Key>
+    <Property Name="id_utilisateur_autorisation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_utilisateur" Type="Int32" />
+    <Property Name="id_autorisation" Type="Int32" />
+    <NavigationProperty Name="Autorisation" Relationship="Self.FK__Utilisate__id_au__440B1D61" FromRole="Utilisateur_Autorisation" ToRole="Autorisation" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Utilisate__id_ut__4316F928" FromRole="Utilisateur_Autorisation" ToRole="Utilisateur" />
+  </EntityType>
+  <EntityType Name="Utilisateur_Role">
+    <Key>
+      <PropertyRef Name="id_utilisateur_role" />
+    </Key>
+    <Property Name="id_utilisateur_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_utilisateur" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Utilisate__id_ro__403A8C7D" FromRole="Utilisateur_Role" ToRole="Role" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Utilisate__id_ut__3F466844" FromRole="Utilisateur_Role" ToRole="Utilisateur" />
+  </EntityType>
+  <Association Name="FK__Utilisate__id_ap__47DBAE45">
+    <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+    <End Role="Utilisateur_Application" Type="Self.Utilisateur_Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Application">
+        <PropertyRef Name="id_application" />
+      </Principal>
+      <Dependent Role="Utilisateur_Application">
+        <PropertyRef Name="id_application" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__id_au__440B1D61">
+    <End Role="Autorisation" Type="Self.Autorisation" Multiplicity="0..1" />
+    <End Role="Utilisateur_Autorisation" Type="Self.Utilisateur_Autorisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autorisation">
+        <PropertyRef Name="id_autorisation" />
+      </Principal>
+      <Dependent Role="Utilisateur_Autorisation">
+        <PropertyRef Name="id_autorisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__id_ro__403A8C7D">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="Utilisateur_Role">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__id_ut__3F466844">
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Utilisateur_Role" Type="Self.Utilisateur_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="Utilisateur_Role">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__id_ut__4316F928">
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Utilisateur_Autorisation" Type="Self.Utilisateur_Autorisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="Utilisateur_Autorisation">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__id_ut__46E78A0C">
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Utilisateur_Application" Type="Self.Utilisateur_Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="Utilisateur_Application">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UtilisateursEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Application" EntityType="Self.Application" />
+    <EntitySet Name="Autorisation" EntityType="Self.Autorisation" />
+    <EntitySet Name="DataUtilisateur" EntityType="Self.DataUtilisateur" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" />
+    <EntitySet Name="Utilisateur_Application" EntityType="Self.Utilisateur_Application" />
+    <EntitySet Name="Utilisateur_Autorisation" EntityType="Self.Utilisateur_Autorisation" />
+    <EntitySet Name="Utilisateur_Role" EntityType="Self.Utilisateur_Role" />
+    <AssociationSet Name="FK__Utilisate__id_ap__47DBAE45" Association="Self.FK__Utilisate__id_ap__47DBAE45">
+      <End Role="Application" EntitySet="Application" />
+      <End Role="Utilisateur_Application" EntitySet="Utilisateur_Application" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__id_au__440B1D61" Association="Self.FK__Utilisate__id_au__440B1D61">
+      <End Role="Autorisation" EntitySet="Autorisation" />
+      <End Role="Utilisateur_Autorisation" EntitySet="Utilisateur_Autorisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__id_ro__403A8C7D" Association="Self.FK__Utilisate__id_ro__403A8C7D">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__id_ut__3F466844" Association="Self.FK__Utilisate__id_ut__3F466844">
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+      <End Role="Utilisateur_Role" EntitySet="Utilisateur_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__id_ut__4316F928" Association="Self.FK__Utilisate__id_ut__4316F928">
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+      <End Role="Utilisateur_Autorisation" EntitySet="Utilisateur_Autorisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__id_ut__46E78A0C" Association="Self.FK__Utilisate__id_ut__46E78A0C">
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+      <End Role="Utilisateur_Application" EntitySet="Utilisateur_Application" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="UtilisateursModel.sysdiagrams" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(UtilisateursModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(UtilisateursModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

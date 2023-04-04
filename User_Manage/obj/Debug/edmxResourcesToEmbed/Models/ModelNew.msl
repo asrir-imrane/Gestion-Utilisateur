@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataUtilisateurModelStoreContainer" CdmEntityContainer="DataUtilisateurEntities">
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.Applications">
+        <MappingFragment StoreEntitySet="Applications">
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="NomApp" ColumnName="NomApp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Autorisations">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.Autorisations">
+        <MappingFragment StoreEntitySet="Autorisations">
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+          <ScalarProperty Name="NomAutorisation" ColumnName="NomAutorisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RôleAutorisation">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.RôleAutorisation">
+        <MappingFragment StoreEntitySet="RôleAutorisation">
+          <ScalarProperty Name="RoleAutorisationID" ColumnName="RoleAutorisationID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rôles">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.Rôles">
+        <MappingFragment StoreEntitySet="Rôles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="NomRole" ColumnName="NomRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UtilisateurRôle">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.UtilisateurRôle">
+        <MappingFragment StoreEntitySet="UtilisateurRôle">
+          <ScalarProperty Name="UtilisateurRoleID" ColumnName="UtilisateurRoleID" />
+          <ScalarProperty Name="UtilisateurID" ColumnName="UtilisateurID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.Utilisateurs">
+        <MappingFragment StoreEntitySet="Utilisateurs">
+          <ScalarProperty Name="UtilisateurID" ColumnName="UtilisateurID" />
+          <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
+          <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+          <ScalarProperty Name="AdresseEmail" ColumnName="AdresseEmail" />
+          <ScalarProperty Name="DateInscription" ColumnName="DateInscription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonneesUtilisateur1Set">
+      <EntityTypeMapping TypeName="DataUtilisateurModel.DonneesUtilisateur1">
+        <MappingFragment StoreEntitySet="DonneesUtilisateur">
+          <ScalarProperty Name="NomApp" ColumnName="NomApp" />
+          <ScalarProperty Name="NomAutorisation" ColumnName="NomAutorisation" />
+          <ScalarProperty Name="NomRole" ColumnName="NomRole" />
+          <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

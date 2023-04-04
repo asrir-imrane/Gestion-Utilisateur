@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="utilisateurModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Affectations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdApp" Type="Int32" Nullable="false" />
+    <Property Name="IdAffRole" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AffectationsRole" Relationship="Self.FK__Affectati__IdAff__656C112C" FromRole="Affectations" ToRole="AffectationsRole" />
+    <NavigationProperty Name="DbApplication" Relationship="Self.Fk_IdApp" FromRole="Affectations" ToRole="DbApplication" />
+  </EntityType>
+  <EntityType Name="AffectationsAutorisations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAutorisation" Type="Int32" Nullable="false" />
+    <Property Name="IdRole" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AffectationsRole" Relationship="Self.FK__Affectati__IdAff__5CD6CB2B" FromRole="AffectationsAutorisations" ToRole="AffectationsRole" />
+    <NavigationProperty Name="Autorisations" Relationship="Self.FK__Affectati__IdAut__412EB0B6" FromRole="AffectationsAutorisations" ToRole="Autorisations" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK__Affectati__IdRol__4222D4EF" FromRole="AffectationsAutorisations" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="AffectationsRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUtilisateur" Type="Int32" Nullable="false" />
+    <Property Name="IdAffAutorisation" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Affectations" Relationship="Self.FK__Affectati__IdAff__656C112C" FromRole="AffectationsRole" ToRole="Affectations" />
+    <NavigationProperty Name="AffectationsAutorisations" Relationship="Self.FK__Affectati__IdAff__5CD6CB2B" FromRole="AffectationsRole" ToRole="AffectationsAutorisations" />
+    <NavigationProperty Name="Utilisateurs" Relationship="Self.FK__Affectati__IdUti__5BE2A6F2" FromRole="AffectationsRole" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Autorisations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="NomAutorisation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AffectationsAutorisations" Relationship="Self.FK__Affectati__IdAut__412EB0B6" FromRole="Autorisations" ToRole="AffectationsAutorisations" />
+  </EntityType>
+  <EntityType Name="DbApplication">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTable" Type="Int32" Nullable="false" />
+    <Property Name="NomTable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Affectations" Relationship="Self.Fk_IdApp" FromRole="DbApplication" ToRole="Affectations" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="NomRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AffectationsAutorisations" Relationship="Self.FK__Affectati__IdRol__4222D4EF" FromRole="Roles" ToRole="AffectationsAutorisations" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Utilisateurs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="NomUtilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MotDePasse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdresseEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NomComplet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateInscription" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Etat" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AffectationsRole" Relationship="Self.FK__Affectati__IdUti__5BE2A6F2" FromRole="Utilisateurs" ToRole="AffectationsRole" />
+  </EntityType>
+  <Association Name="FK__Affectati__IdAff__656C112C">
+    <End Role="AffectationsRole" Type="Self.AffectationsRole" Multiplicity="1" />
+    <End Role="Affectations" Type="Self.Affectations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AffectationsRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Affectations">
+        <PropertyRef Name="IdAffRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_IdApp">
+    <End Role="DbApplication" Type="Self.DbApplication" Multiplicity="1" />
+    <End Role="Affectations" Type="Self.Affectations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbApplication">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Affectations">
+        <PropertyRef Name="IdApp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Affectati__IdAff__5CD6CB2B">
+    <End Role="AffectationsAutorisations" Type="Self.AffectationsAutorisations" Multiplicity="1" />
+    <End Role="AffectationsRole" Type="Self.AffectationsRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AffectationsAutorisations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AffectationsRole">
+        <PropertyRef Name="IdAffAutorisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Affectati__IdAut__412EB0B6">
+    <End Role="Autorisations" Type="Self.Autorisations" Multiplicity="1" />
+    <End Role="AffectationsAutorisations" Type="Self.AffectationsAutorisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autorisations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AffectationsAutorisations">
+        <PropertyRef Name="IdAutorisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Affectati__IdRol__4222D4EF">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="AffectationsAutorisations" Type="Self.AffectationsAutorisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AffectationsAutorisations">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Affectati__IdUti__5BE2A6F2">
+    <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="1" />
+    <End Role="AffectationsRole" Type="Self.AffectationsRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AffectationsRole">
+        <PropertyRef Name="IdUtilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="utilisateurEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Affectations" EntityType="Self.Affectations" />
+    <EntitySet Name="AffectationsAutorisations" EntityType="Self.AffectationsAutorisations" />
+    <EntitySet Name="AffectationsRole" EntityType="Self.AffectationsRole" />
+    <EntitySet Name="Autorisations" EntityType="Self.Autorisations" />
+    <EntitySet Name="DbApplication" EntityType="Self.DbApplication" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
+    <AssociationSet Name="FK__Affectati__IdAff__656C112C" Association="Self.FK__Affectati__IdAff__656C112C">
+      <End Role="AffectationsRole" EntitySet="AffectationsRole" />
+      <End Role="Affectations" EntitySet="Affectations" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_IdApp" Association="Self.Fk_IdApp">
+      <End Role="DbApplication" EntitySet="DbApplication" />
+      <End Role="Affectations" EntitySet="Affectations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Affectati__IdAff__5CD6CB2B" Association="Self.FK__Affectati__IdAff__5CD6CB2B">
+      <End Role="AffectationsAutorisations" EntitySet="AffectationsAutorisations" />
+      <End Role="AffectationsRole" EntitySet="AffectationsRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Affectati__IdAut__412EB0B6" Association="Self.FK__Affectati__IdAut__412EB0B6">
+      <End Role="Autorisations" EntitySet="Autorisations" />
+      <End Role="AffectationsAutorisations" EntitySet="AffectationsAutorisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Affectati__IdRol__4222D4EF" Association="Self.FK__Affectati__IdRol__4222D4EF">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="AffectationsAutorisations" EntitySet="AffectationsAutorisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Affectati__IdUti__5BE2A6F2" Association="Self.FK__Affectati__IdUti__5BE2A6F2">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="AffectationsRole" EntitySet="AffectationsRole" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(utilisateurModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(utilisateurModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

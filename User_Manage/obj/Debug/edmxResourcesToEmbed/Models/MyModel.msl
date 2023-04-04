@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UtilisateursModelStoreContainer" CdmEntityContainer="UtilisateursEntities">
+    <EntitySetMapping Name="Application">
+      <EntityTypeMapping TypeName="UtilisateursModel.Application">
+        <MappingFragment StoreEntitySet="Application">
+          <ScalarProperty Name="id_application" ColumnName="id_application" />
+          <ScalarProperty Name="nom_application" ColumnName="nom_application" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Autorisation">
+      <EntityTypeMapping TypeName="UtilisateursModel.Autorisation">
+        <MappingFragment StoreEntitySet="Autorisation">
+          <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+          <ScalarProperty Name="nom_autorisation" ColumnName="nom_autorisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataUtilisateur">
+      <EntityTypeMapping TypeName="UtilisateursModel.DataUtilisateur">
+        <MappingFragment StoreEntitySet="DataUtilisateur">
+          <ScalarProperty Name="id_data_utilisateur" ColumnName="id_data_utilisateur" />
+          <ScalarProperty Name="Identifiant" ColumnName="Identifiant" />
+          <ScalarProperty Name="nomUtilisateur" ColumnName="nomUtilisateur" />
+          <ScalarProperty Name="nomRole" ColumnName="nomRole" />
+          <ScalarProperty Name="nomAutorisation" ColumnName="nomAutorisation" />
+          <ScalarProperty Name="nomApplication" ColumnName="nomApplication" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="UtilisateursModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="nom_role" ColumnName="nom_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur">
+      <EntityTypeMapping TypeName="UtilisateursModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+          <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+          <ScalarProperty Name="adresse_email" ColumnName="adresse_email" />
+          <ScalarProperty Name="date_inscription" ColumnName="date_inscription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur_Application">
+      <EntityTypeMapping TypeName="UtilisateursModel.Utilisateur_Application">
+        <MappingFragment StoreEntitySet="Utilisateur_Application">
+          <ScalarProperty Name="id_utilisateur_application" ColumnName="id_utilisateur_application" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_application" ColumnName="id_application" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur_Autorisation">
+      <EntityTypeMapping TypeName="UtilisateursModel.Utilisateur_Autorisation">
+        <MappingFragment StoreEntitySet="Utilisateur_Autorisation">
+          <ScalarProperty Name="id_utilisateur_autorisation" ColumnName="id_utilisateur_autorisation" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_autorisation" ColumnName="id_autorisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur_Role">
+      <EntityTypeMapping TypeName="UtilisateursModel.Utilisateur_Role">
+        <MappingFragment StoreEntitySet="Utilisateur_Role">
+          <ScalarProperty Name="id_utilisateur_role" ColumnName="id_utilisateur_role" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="UtilisateursModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="UtilisateursModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="UtilisateursModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="UtilisateursModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="UtilisateursModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="UtilisateursModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="UtilisateursModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="UtilisateursModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="UtilisateursModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="UtilisateursModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

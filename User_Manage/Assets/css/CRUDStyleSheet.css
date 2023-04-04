@@ -1,0 +1,51 @@
+﻿.form-control:focus {
+    border-color: #6c757d;
+    box-shadow: none;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-outline-secondary:focus,
+    .btn-outline-secondary.focus {
+        box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+    }
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+input[type="search"] {
+    -webkit-appearance: none;
+}
+
+    input[type="search"]::placeholder {
+        color: #adb5bd;
+    }
+
+.search-form {
+    max-width: 400px;
+}
+
+@media screen and (max-width: 575.98px) {
+    .search-form {
+        margin-bottom: 10px;
+    }
+}
+
+
+/*__________________________________________________________________*/
