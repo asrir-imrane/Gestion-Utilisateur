@@ -51,13 +51,13 @@ namespace User_Manage.ui
         protected global::System.Web.UI.WebControls.DropDownList _Applications;
 
         /// <summary>
-        /// btnModifier control.
+        /// btnAjouter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModifier;
+        protected global::System.Web.UI.WebControls.Button btnAjouter;
 
         /// <summary>
         /// errorMessage control.

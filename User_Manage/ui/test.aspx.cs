@@ -22,9 +22,8 @@ namespace User_Manage.ui
 
             if (isValidUser)
             {
-                // successful login
-                successMessage.Visible = true;
-                errorMessage.Visible = false;
+                Response.Redirect("UserManage.aspx");
+
                 // do something else, such as redirecting to another page
             }
             else
@@ -34,10 +33,10 @@ namespace User_Manage.ui
                 errorMessage.Visible = true;
             }
         }
-
-
+       
 
     }
 }
-         
-            
+
+
+    

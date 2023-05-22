@@ -118,6 +118,7 @@
     <Content Include="Assets\css\StyleSheetHome.css" />
     <Content Include="Assets\font\css.css" />
     <Content Include="Assets\icons\icon.css" />
+    <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\ONEE.png" />
     <Content Include="Assets\images\centrale-thermique.jpg" />
     <Content Include="Assets\scripts\axios.min.js" />

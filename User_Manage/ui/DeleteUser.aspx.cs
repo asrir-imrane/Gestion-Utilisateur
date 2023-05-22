@@ -27,8 +27,19 @@ namespace User_Manage.ui
         protected void Page_Load(object sender, EventArgs e)
         {
         }
+        protected void Supprimerutilisateur(object sender, EventArgs e)
+        {
+          
+            int userId = Int32.Parse(Request.Form["id_User"]);  
 
-        [WebMethod]
+
+            Supprimerutilisateur(userId);
+            Response.Redirect("UserManage.aspx");
+
+
+        }
+
+
         public static string Supprimerutilisateur(int userId)
         {
             try
