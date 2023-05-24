@@ -1,0 +1,214 @@
+USE [master]
+GO
+/****** Object:  Database [DB_Utilisateurs]    Script Date: 24/05/2023 15:49:13 ******/
+CREATE DATABASE [DB_Utilisateurs]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DB_Utilisateurs', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\DB_Utilisateurs.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'DB_Utilisateurs_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\DB_Utilisateurs_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [DB_Utilisateurs] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DB_Utilisateurs].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET RECOVERY FULL 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET  MULTI_USER 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DB_Utilisateurs] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [DB_Utilisateurs] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'DB_Utilisateurs', N'ON'
+GO
+ALTER DATABASE [DB_Utilisateurs] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [DB_Utilisateurs] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [DB_Utilisateurs]
+GO
+/****** Object:  Table [dbo].[Utilisateurs]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Utilisateurs](
+	[id_utilisateur] [int] IDENTITY(1,1) NOT NULL,
+	[nom_utilisateur] [nvarchar](50) NOT NULL,
+	[mot_de_passe] [nvarchar](50) NOT NULL,
+	[adresse_email] [nvarchar](50) NOT NULL,
+	[date_inscription] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_utilisateur] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role](
+	[id_role] [int] IDENTITY(1,1) NOT NULL,
+	[nom_role] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_role] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Autorisation]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Autorisation](
+	[id_autorisation] [int] IDENTITY(1,1) NOT NULL,
+	[nom_autorisation] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_autorisation] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Application]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Application](
+	[id_application] [int] IDENTITY(1,1) NOT NULL,
+	[nom_application] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_application] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Utilisateur_Role]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Utilisateur_Role](
+	[id_utilisateur_role] [int] IDENTITY(1,1) NOT NULL,
+	[id_utilisateur] [int] NULL,
+	[id_role] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_utilisateur_role] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Application_Role_Autorisations]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Application_Role_Autorisations](
+	[id_Application_role_aut] [int] IDENTITY(1,1) NOT NULL,
+	[id_Application] [int] NULL,
+	[id_utilisateur_role] [int] NULL,
+	[id_autorisation] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_Application_role_aut] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[User_Permissions]    Script Date: 24/05/2023 15:49:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[User_Permissions] AS
+SELECT u.id_utilisateur, u.nom_utilisateur, r.nom_role, a.nom_autorisation, ap.nom_application
+FROM Utilisateurs u
+JOIN Utilisateur_Role ur ON u.id_utilisateur = ur.id_utilisateur
+JOIN Role r ON ur.id_role = r.id_role
+JOIN Application_Role_Autorisations ara ON ur.id_utilisateur_role = ara.id_utilisateur_role
+JOIN Autorisation a ON ara.id_autorisation = a.id_autorisation
+JOIN Application ap ON ara.id_Application = ap.id_application;
+GO
+ALTER TABLE [dbo].[Application_Role_Autorisations]  WITH CHECK ADD FOREIGN KEY([id_Application])
+REFERENCES [dbo].[Application] ([id_application])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Application_Role_Autorisations]  WITH CHECK ADD FOREIGN KEY([id_autorisation])
+REFERENCES [dbo].[Autorisation] ([id_autorisation])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Application_Role_Autorisations]  WITH CHECK ADD FOREIGN KEY([id_utilisateur_role])
+REFERENCES [dbo].[Utilisateur_Role] ([id_utilisateur_role])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Utilisateur_Role]  WITH CHECK ADD FOREIGN KEY([id_role])
+REFERENCES [dbo].[Role] ([id_role])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Utilisateur_Role]  WITH CHECK ADD FOREIGN KEY([id_utilisateur])
+REFERENCES [dbo].[Utilisateurs] ([id_utilisateur])
+ON DELETE CASCADE
+GO
+USE [master]
+GO
+ALTER DATABASE [DB_Utilisateurs] SET  READ_WRITE 
+GO

@@ -32,11 +32,11 @@
 
                             <div class=" mb-3  form-floating">
                                 <input v-model="userLogin" type="text" class="form-control" placeholder="User Name" runat="server" id="UserLogin" required>
-                                <label for="UserLogin">User Name</label>
+                                <label for="UserLogin">Nom Utilisateur</label>
                             </div>
                             <div class=" mb-3  form-floating">
                                 <input v-model="passwordlogin" type="password" class="form-control" placeholder="Password" runat="server" id="passwordLogin" required>
-                                <label for="passwordLogin">Password</label>
+                                <label for="passwordLogin">Mot de passe</label>
                             </div>
 
 

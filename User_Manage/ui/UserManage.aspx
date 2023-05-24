@@ -61,9 +61,9 @@
 
 
         .modal-body {
-            margin-top: 20px;
+            
             max-height: 700px;
-            overflow-y: scroll;
+           
             font-family: "Dosis", sans-serif;
         }
 
@@ -162,37 +162,6 @@
             font-family: "Dosis", sans-serif;
         }
 
-        .vtn {
-            background-color: transparent;
-            border: none;
-            color: #000;
-            cursor: pointer;
-            font-size: 20px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            padding: 0;
-        }
-
-            .vtn:hover {
-                color: #fff;
-            }
-
-        .vtn-circle {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #ccc;
-            text-align: center;
-            line-height: 50px;
-            position: absolute;
-            top: 3%;
-            left: 70%;
-            z-index: 0;
-        }
 
 
 
@@ -309,12 +278,22 @@
             }
 
         .containerx {
-            background-color: #f2f2f2;
+            height: 350px;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom:125px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            margin-bottom: 125px;
         }
+
+            .containerx h2 {
+                font-size: 3.5rem;
+                margin-bottom: 50px;
+            }
+
+            .containerx p {
+                font-size: 30px;
+                margin-bottom: 50px;
+            }
     </style>
 </head>
 
